@@ -1,11 +1,15 @@
+"use client";
+
+import { useRouter } from 'next/navigation';
 import React from 'react'
 
 type Props = {
     totalPages: number;
-    currentPage: number;
-    setCurrentPage: (page: number) => void;
+    page: number;
 }
-const Pagination = ({ totalPages, currentPage, setCurrentPage }: Props) => {
+const Pagination = ({ totalPages, page }: Props) => {
+    const router = useRouter();
+    
     const getPageNumbers = () => {
         const pages = [];
         if (totalPages <= 5) {
@@ -13,31 +17,31 @@ const Pagination = ({ totalPages, currentPage, setCurrentPage }: Props) => {
                 pages.push(i);
             }
         } else {
-            if (currentPage <= 3) {
+            if (page <= 3) {
                 pages.push(1, 2, 3, 4, '...', totalPages);
-            } else if (currentPage >= totalPages - 2) {
+            } else if (page >= totalPages - 2) {
                 pages.push(1, '...', totalPages - 3, totalPages - 2, totalPages - 1, totalPages);
             } else {
-                pages.push(1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages);
+                pages.push(1, '...', page - 1, page, page + 1, '...', totalPages);
             }
         }
         return pages;
     };
     return (
         <div>
-            <nav className="inline-flex flex-wrap items-center gap-1 rounded-lg bg-white px-2 py-2 shadow border border-gray-200">
+            <nav className="inline-flex flex-wrap items-center gap-1 rounded-lg bg-white px-2 py-2 shadow ">
                 <button
-                    className={`px-2 sm:px-3 py-1 rounded-md font-medium transition-colors ${currentPage === 1
+                    className={`px-2 sm:px-3 py-1 rounded-md font-medium transition-colors ${page === 1
                         ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                         : 'hover:bg-blue-100 text-blue-600'
                         }`}
-                    onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-                    disabled={currentPage === 1}
+                    onClick={() => router.push(`?page=${page - 1}`)}
+                    disabled={page === 1}
                 >
                     &#8592; Prev
                 </button>
-                {getPageNumbers().map((page, idx) =>
-                    page === '...' ? (
+                {getPageNumbers().map((pageNumber, idx) =>
+                    pageNumber === '...' ? (
                         <span
                             key={idx}
                             className="px-2 sm:px-3 py-1 text-gray-400 select-none"
@@ -47,23 +51,25 @@ const Pagination = ({ totalPages, currentPage, setCurrentPage }: Props) => {
                     ) : (
                         <button
                             key={idx}
-                            className={`px-2 sm:px-3 py-1 rounded-md font-medium transition-colors ${currentPage === page
+                            className={`px-2 sm:px-3 py-1 rounded-md font-medium transition-colors ${page === pageNumber
                                 ? 'bg-blue-600 text-white shadow'
                                 : 'hover:bg-blue-100 text-blue-600'
                                 }`}
-                            onClick={() => setCurrentPage(Number(page))}
+                            onClick={() => {
+                                router.push(`?page=${pageNumber}`)
+                            }}
                         >
-                            {page}
+                            {pageNumber}
                         </button>
                     )
                 )}
                 <button
-                    className={`px-2 sm:px-3 py-1 rounded-md font-medium transition-colors ${currentPage === totalPages || totalPages === 0
+                    className={`px-2 sm:px-3 py-1 rounded-md font-medium transition-colors ${page === totalPages || totalPages === 0
                         ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                         : 'hover:bg-blue-100 text-blue-600'
                         }`}
-                    onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
-                    disabled={currentPage === totalPages || totalPages === 0}
+                    onClick={() => router.push(`?page=${page + 1}`)}
+                    disabled={page === totalPages || totalPages === 0}
                 >
                     Next &#8594;
                 </button>

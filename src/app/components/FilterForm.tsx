@@ -1,3 +1,5 @@
+"use client";
+
 import { TData } from '@/api/type';
 import React, { useMemo, useState } from 'react'
 
@@ -30,8 +32,9 @@ const FilterForm = ({ response, setFilters }: Props) => {
             onSubmit={handleFilter}
         >
             <div className="flex flex-col w-full sm:w-1/4">
-                <label className="mb-1 text-sm font-medium text-gray-700">User ID</label>
+                <label htmlFor="userId-select" className="mb-1 text-sm font-medium text-gray-700">User Id</label>
                 <select
+                    id="userId-select"
                     className="bg-gray-50 py-[0.6rem] text-[0.9rem] rounded-sm px-2 !text-black outline-none"
                     value={userId}
                     onChange={e => setUserId(e.target.value)}
@@ -43,8 +46,9 @@ const FilterForm = ({ response, setFilters }: Props) => {
                 </select>
             </div>
             <div className="flex flex-col w-full sm:w-1/2">
-                <label className="mb-1 text-sm font-medium text-gray-700">Search</label>
+                <label htmlFor="search-input" className="mb-1 text-sm font-medium text-gray-700">Search</label>
                 <input
+                    id="search-input"
                     type="text"
                     placeholder="Filter by title or body..."
                     className="bg-gray-50 text-[0.9rem] py-[0.5rem] rounded-sm px-2 !text-black outline-none"

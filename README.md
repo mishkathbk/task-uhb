@@ -1,5 +1,11 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Features
+
+- **Pagination**: Pagination is implemented on the client side, but the current page is managed through the URL using query parameters for better navigation and shareability.
+- **Filtering**: Filter the table by user ID (dropdown) and by search (input).
+- **Jest Testing**: The project includes unit tests for all main components using Jest and React Testing Library.
+
 ## Getting Started
 
 First, run the development server:
@@ -19,6 +25,15 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+## Running Tests
+
+This project uses Jest for unit testing.  
+To run all tests, use:
+
+```bash
+npm run test
+```
 
 ## Learn More
 

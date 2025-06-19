@@ -1,19 +1,21 @@
-"use client"
+"use client";
+
 import { TData } from '@/api/type'
-import React, { useState, useMemo, useEffect } from 'react'
+import React, { useState, useMemo } from 'react'
 import FilterForm from './FilterForm'
 import Pagination from './Pagination'
+// import { useRouter } from 'next/navigation'
 
 type Props = {
     response: TData[]
+    page: number
 }
 
 const ITEMS_PER_PAGE = 10;
 
-const Table = ({ response }: Props) => {
-    const [currentPage, setCurrentPage] = useState(1);
+const Table = ({ response, page }: Props) => {
     const [filters, setFilters] = useState({ search: '', userId: '' });
-    console.log("filters:::", filters);
+    // const router = useRouter();
     const filteredData = useMemo(() => {
         let data = response;
         if (filters.userId) {
@@ -32,16 +34,13 @@ const Table = ({ response }: Props) => {
     const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
 
     const paginatedData = useMemo(() => {
-        const start = (currentPage - 1) * ITEMS_PER_PAGE;
+        const start = (page - 1) * ITEMS_PER_PAGE;
         return filteredData.slice(start, start + ITEMS_PER_PAGE);
-    }, [filteredData, currentPage]);
+    }, [filteredData, page]);
 
-    useEffect(() => {
-        setCurrentPage(1);
-    }, [filters]);
-    useEffect(() => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, [currentPage]);
+    // useEffect(() => {
+    //     window.scrollTo({ top: 0, behavior: 'smooth' });
+    // }, [page]);
 
 
     return (
@@ -78,10 +77,10 @@ const Table = ({ response }: Props) => {
                 </table>
             </div>
             <div className="flex justify-center mt-6">
-                <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} totalPages={totalPages} />
+                <Pagination page={page} totalPages={totalPages} />
             </div>
             <div className="flex justify-center mt-2 text-gray-500 text-xs sm:text-sm">
-                Page <span className="font-semibold text-blue-600 mx-1">{currentPage}</span> of <span className="font-semibold text-blue-600 mx-1">{totalPages}</span>
+                Page <span className="font-semibold text-blue-600 mx-1">{page}</span> of <span className="font-semibold text-blue-600 mx-1">{totalPages}</span>
             </div>
         </div>
     )
