@@ -1,6 +1,7 @@
 "use client";
 
 import { TData } from '@/api/type';
+import { useRouter } from 'next/navigation';
 import React, { useMemo, useState } from 'react'
 
 type Props = {
@@ -12,12 +13,14 @@ type Props = {
 const FilterForm = ({ response, setFilters }: Props) => {
     const [userId, setUserId] = useState('');
     const [search, setSearch] = useState('');
+    const router = useRouter()
     const userIds = useMemo(
         () => Array.from(new Set(response.map(item => item.userId))),
         [response]
     );
     const handleFilter = (e: React.FormEvent) => {
         e.preventDefault();
+        router.replace(`?page=1`);
         setFilters({ search, userId });
     };
 

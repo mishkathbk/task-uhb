@@ -4,7 +4,6 @@ import { TData } from '@/api/type'
 import React, { useState, useMemo } from 'react'
 import FilterForm from './FilterForm'
 import Pagination from './Pagination'
-// import { useRouter } from 'next/navigation'
 
 type Props = {
     response: TData[]
@@ -15,7 +14,6 @@ const ITEMS_PER_PAGE = 10;
 
 const Table = ({ response, page }: Props) => {
     const [filters, setFilters] = useState({ search: '', userId: '' });
-    // const router = useRouter();
     const filteredData = useMemo(() => {
         let data = response;
         if (filters.userId) {
@@ -32,6 +30,10 @@ const Table = ({ response, page }: Props) => {
     }, [filters, response]);
 
     const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
+
+    // useEffect(() => {
+    //     router.replace(`?page=1`);
+    // }, [filters, router]);
 
     const paginatedData = useMemo(() => {
         const start = (page - 1) * ITEMS_PER_PAGE;
@@ -59,7 +61,7 @@ const Table = ({ response, page }: Props) => {
                     <tbody>
                         {paginatedData.length === 0 ? (
                             <tr>
-                                <td colSpan={4} className="text-center py-4">
+                                <td colSpan={4} className="text-center py-4 text-black">
                                     No data found.
                                 </td>
                             </tr>
