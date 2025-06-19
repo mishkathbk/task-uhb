@@ -27,7 +27,7 @@ jest.mock('next/navigation', () => ({
 
 describe('Table', () => {
     it('renders table headers', () => {
-        render(<Table response={mockData} page={1} />);
+        render(<Table filteredData={mockData} page={1} />);
         expect(screen.getByText('ID')).toBeInTheDocument();
         expect(screen.getByText('User ID')).toBeInTheDocument();
         expect(screen.getByText('Title')).toBeInTheDocument();
@@ -35,13 +35,13 @@ describe('Table', () => {
     });
 
     it('renders table data', () => {
-        render(<Table response={mockData} page={1} />);
+        render(<Table filteredData={mockData} page={1} />);
         expect(screen.getByText('Test Title 1')).toBeInTheDocument();
         expect(screen.getByText('Test Body 2')).toBeInTheDocument();
     });
 
     it('shows "No data found." when no data', () => {
-        render(<Table response={[]} page={1} />);
+        render(<Table filteredData={[]} page={1} />);
         expect(screen.getByText('No data found.')).toBeInTheDocument();
     });
 });

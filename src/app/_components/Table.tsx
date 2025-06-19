@@ -1,54 +1,21 @@
 "use client";
 
 import { TData } from '@/api/type'
-import React, { useState, useMemo } from 'react'
-import FilterForm from './FilterForm'
-import Pagination from './Pagination'
+import React from 'react'
 
 type Props = {
-    response: TData[]
+    filteredData: TData[]
     page: number
 }
 
 const ITEMS_PER_PAGE = 10;
 
-const Table = ({ response, page }: Props) => {
-    const [filters, setFilters] = useState({ search: '', userId: '' });
-    const filteredData = useMemo(() => {
-        let data = response;
-        if (filters.userId) {
-            data = data.filter(item => String(item.userId) === filters.userId);
-        }
-        if (filters.search) {
-            data = data.filter(
-                item =>
-                    item.title.toLowerCase().includes(filters.search.toLowerCase()) ||
-                    item.body.toLowerCase().includes(filters.search.toLowerCase())
-            );
-        }
-        return data;
-    }, [filters, response]);
-
-    const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
-
-    // useEffect(() => {
-    //     router.replace(`?page=1`);
-    // }, [filters, router]);
-
-    const paginatedData = useMemo(() => {
-        const start = (page - 1) * ITEMS_PER_PAGE;
-        return filteredData.slice(start, start + ITEMS_PER_PAGE);
-    }, [filteredData, page]);
-
-    // useEffect(() => {
-    //     window.scrollTo({ top: 0, behavior: 'smooth' });
-    // }, [page]);
-
-
+const Table = ({ filteredData, page }: Props) => {
+    const start = (page - 1) * ITEMS_PER_PAGE;
+    const paginatedData = filteredData.slice(start, start + ITEMS_PER_PAGE);
     return (
-        <div className="w-full max-w-5xl mx-auto py-8 px-2 sm:px-4">
-            <FilterForm response={response} setFilters={setFilters} />
-            <div className="overflow-x-auto rounded-lg shadow bg-white">
+        <div>
+            <div className="overflow-x-auto rounded-lg border bg-white">
                 <table className="min-w-full border border-gray-200 rounded-lg text-sm sm:text-base">
                     <thead>
                         <tr className="bg-gray-200 text-black">
@@ -78,12 +45,7 @@ const Table = ({ response, page }: Props) => {
                     </tbody>
                 </table>
             </div>
-            <div className="flex justify-center mt-6">
-                <Pagination page={page} totalPages={totalPages} />
-            </div>
-            <div className="flex justify-center mt-2 text-gray-500 text-xs sm:text-sm">
-                Page <span className="font-semibold text-blue-600 mx-1">{page}</span> of <span className="font-semibold text-blue-600 mx-1">{totalPages}</span>
-            </div>
+
         </div>
     )
 }
