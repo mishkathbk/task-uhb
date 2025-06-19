@@ -2,9 +2,11 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Features
 
-- **Pagination**: Pagination is implemented on the client side, but the current page is managed through the URL using query parameters for better navigation and shareability.
-- **Filtering**: Filter the table by user ID (dropdown) and by search (input).
-- **Jest Testing**: The project includes unit tests for all main components using Jest and React Testing Library.
+- **Pagination**: Pagination is supported by the API, but since filtering is not supported, both pagination and filtering are implemented on the client side to ensure a smooth user experience. The current page is managed through the URL using query parameters for better navigation and shareability.
+- **Filtering**: Filtering is done on the client side because the API does not support filtering.
+- **Validation**: Form validation is implemented using React Hook Form and Zod for robust and user-friendly validation.
+- **Styling**: The project uses [DaisyUI](https://daisyui.com/) for modern, responsive, and accessible UI components.
+- **Jest Testing**: The project includes unit tests for all main components using
 
 ## Getting Started
 
