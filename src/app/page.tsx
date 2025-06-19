@@ -7,7 +7,7 @@ const getApi = async (): Promise<TData[]> => {
   const response = await Api.getData();
   return response?.data;
 };
-const page = async () => {
+const Page = async () => {
   const response = await getApi();
   return (
     <div className='flex justify-center w-full px-[0.5rem] md:px-[1rem] lg:px-[4rem] min-h-screen'>
@@ -16,4 +16,4 @@ const page = async () => {
   )
 }
 
-export default page
+export default Page
