@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import FilterForm from '../app/components/FilterForm';
+import FilterForm from '../app/_components/FilterForm';
 
 const mockData = [
     { userId: 1, id: 1, title: 'A', body: 'B' },

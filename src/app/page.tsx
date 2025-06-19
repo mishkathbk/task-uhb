@@ -1,6 +1,6 @@
 import { Api } from '@/api/Api';
 import React from 'react'
-import Table from './components/Table';
+import Table from './_components/Table';
 import { TData } from '@/api/type';
 
 const getApi = async (): Promise<TData[]> => {

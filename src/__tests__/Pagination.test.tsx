@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import Pagination from '../app/components/Pagination';
+import Pagination from '../app/_components/Pagination';
 
 jest.mock('next/navigation', () => ({
   useRouter: () => ({
